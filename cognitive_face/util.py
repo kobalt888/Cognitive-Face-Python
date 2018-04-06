@@ -82,7 +82,12 @@ def request(method, url, data=None, json=None, headers=None, params=None):
     if 'Content-Type' not in headers:
         headers['Content-Type'] = 'application/json'
     headers['Ocp-Apim-Subscription-Key'] = Key.get()
-
+    
+    # Check that the content-type is valid
+    if headers['content-type'] not 'application/json':
+        if headers ['content-type'] not 'application/octet-stream':
+            raise ValueError('Invalid request body type:' + headers['Content-Type'])
+            
     response = requests.request(
         method,
         url,
